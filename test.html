@@ -1,0 +1,57 @@
+<style>
+    div{
+        text-align: center;
+        font-family: verdana;
+    }
+    button{
+        width: 100px;
+        height: 20px;
+    }
+</style>
+<div>
+<button id="btn1">RED</button>
+<button id="btn2">BLUE</button>
+<h1 id="one">HELLO</h1>
+<h1 id="two">WORLD</h1>
+</div>
+<script>
+
+
+    // This was originally an onclick='test()' within the element attributes. The script was using text " " to place strings of the getElementById() to a const then evalute within the function once called upon. Method is eval() to turn string into function.
+
+    // const position = ["document.getElementById('one').style.color = 'red'", "document.getElementById('two').style.color = 'blue'"]
+    // function test(){ 
+    //     eval(position[0])
+    // }
+    // function test2(){ 
+    //     eval(position[1])
+    // }
+
+    var button = [document.querySelector("#btn1"),document.querySelector("#btn2")];
+    var word = [document.querySelector("#one"),document.querySelector("#two")];
+    var evaluate = true;
+    
+    button[0].addEventListener("click", function() {
+        if(evaluate) {
+            word[0].style.background = "red";
+            word[0].style.color = "white";
+            word[0].style.fontFamily = 'Times New Roman';
+            // document.querySelector('div').style.textAlign = "left";
+        }else {
+            word[0].style.background = "none";
+            word[0].style.color = "black";
+            word[0].style.fontFamily = 'Verdana';
+        }
+        evaluate = !evaluate;
+        });
+    button[1].addEventListener("click", function() {
+        if(evaluate) {
+        word[1].style.background = "blue";
+        word[1].style.color = "white";
+        }else {
+        word[1].style.background = "none";
+        word[1].style.color = "black";
+        }
+        evaluate = !evaluate;
+        });
+</script>
