@@ -1,0 +1,71 @@
+<style>
+    div{
+        text-align: center;
+        font-family: verdana;
+    }
+    button{
+        width: 100px;
+        height: 20px;
+    }
+
+    h2.active{
+        color: white;
+    }
+
+    .blue{
+        background-color: blue;
+    }
+
+    .red{
+        background-color: red;
+    }
+
+
+</style>
+<h1>Example</h1>
+<p>This will do different things based on which button is clicked and with only one event listener added to the page.</p>
+<div class="container">
+    <button id="btn-one">RED</button>
+    <button id="btn-two">BLUE</button>
+    <h2 id="div-one">HELLO</h2>
+    <h2 id="div-two">WORLD</h2>
+</div>
+
+<script>
+    //event listener:
+    document.querySelector('.container').addEventListener('click',myFunc)
+    let words = document.querySelectorAll('.container h2'); //gets all the h2s in the container div and puts them in a node list which is an array-like item.
+
+    //this toggles between red and blue on hello world. Only allows one state to exist.
+
+    function myFunc(e){
+        //e stands for event data. The event listener object comes with a bunch of information associated with it. See its info in the console:
+        console.log(e);
+        console.log(e.target.classList)
+        //let classes = e.target.classList;
+
+        if(e.target.id == 'btn-one'){
+            if(words[0].classList == ''){
+                words[0].classList.add('red', 'active');
+            }else{
+                words[0].classList = '';
+            }
+            console.log('toggle red style....')
+        }else if (e.target.id == 'btn-two'){
+            if(words[1].classList == ''){
+                words[1].classList.add('blue', 'active');
+            }else{
+                words[1].classList = '';
+            }
+            console.log('toggle world style....')
+
+        }else{
+            //if something other than the button is clicked remove styles...
+            words[0].setAttribute('class', '')
+            words[1].setAttribute('class', '')
+
+        }
+    }
+
+</script>
+
