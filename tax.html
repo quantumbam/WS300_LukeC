@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<label for="name">Yearly Income Before Taxes</label>
+<input placeholder="Enter some text" name="name"/>
+<p id="values"></p>
+
+<script type=text/javascript>
+const input = document.querySelector('input');
+const log = document.getElementById('values');
+var bracket=[9950,40525,86375,164925,209425,523600]
+var tax=[.10,.12,.22,.24,.32,.35,.37]
+var tax_index=[bracket[0]*tax[0],bracket[1]*tax[1],bracket[2]*tax[2],bracket[3]*tax[3],bracket[4]*tax[4],bracket[5]*tax[5],bracket[6]*tax[6]]
+const reducer = (previousValue, currentValue) => previousValue + currentValue;
+
+input.addEventListener('input', single_tax);
+
+function single_tax(e) {
+    if(e.target.value<=bracket[0]){
+    cost = e.target.value*tax[0];
+    log.textContent = 'This is your tax bill: '+Math.ceil(cost);
+}else if(e.target.value>bracket[0]&&e.target.value<=bracket[1]){
+    cost = tax_index.slice(0,1).reduce(reducer)+(e.target.value-bracket[0])*tax[1];
+    log.textContent = 'This is your tax bill: $'+Math.ceil(cost);
+}else if(e.target.value>bracket[1]&&e.target.value<=bracket[2]){
+    cost = tax_index.slice(0,2).reduce(reducer)+(e.target.value-bracket[1])*tax[2];
+    log.textContent = 'This is your tax bill: $'+Math.ceil(cost);
+}else if(e.target.value>bracket[2]&&e.target.value<=bracket[3]){
+    cost = tax_index.slice(0,3).reduce(reducer)+(e.target.value-bracket[2])*tax[3];
+    log.textContent = 'This is your tax bill: $'+Math.ceil(cost);
+}else if(e.target.value>bracket[3]&&e.target.value<=bracket[4]){
+    cost = tax_index.slice(0,4).reduce(reducer)+(e.target.value-bracket[3])*tax[4];
+    log.textContent = 'This is your tax bill: $'+Math.ceil(cost);
+}else if(e.target.value>bracket[4]&&e.target.value<=bracket[5]){
+    cost = tax_index.slice(0,5).reduce(reducer)+(e.target.value-bracket[4])*tax[5];
+    log.textContent = 'This is your tax bill: $'+Math.ceil(cost);
+}else if(e.target.value>bracket[5]){
+    cost = tax_index.slice(0,6).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
+    log.textContent = 'This is your tax bill: $'+Math.ceil(cost);
+}};
+</script>
+</html>
