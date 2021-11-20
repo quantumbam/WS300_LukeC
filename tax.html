@@ -89,7 +89,7 @@ function single_tax(e) {
     cost = tax_index.slice(0,6).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
     log.textContent = '$'+Math.ceil(cost);
 }else if(e.target.value>bracket[6]){
-    cost = tax_index.slice(0,6).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
+    cost = tax_index.slice(0,7).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
     log.textContent = '$'+Math.ceil(cost);
 }
 };
