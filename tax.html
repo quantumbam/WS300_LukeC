@@ -97,6 +97,30 @@
     h3{
         font-family: verdana;
     }
+    div.amortizing {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+    }
+    div.return_value{
+        display: block;
+        text-align: center;
+        
+    }
+    div.return_value div#total {
+        padding-left: 10px;
+    }
+    button#button1{
+        margin: 10px auto;
+        width: 10%;
+    }
+    div#total{
+        margin: 0 auto;
+        height: 30px;
+        width:80px;
+        border: 2px solid black;
+    }
 </style>
 <body>
     <nav>
@@ -118,6 +142,22 @@
     <p id="values2"></p>
     </div>
     </div>
+    <div class='amortizing'>
+        <label  for="Initial Debt">Initial Deposit</label>
+        <input class='P' type='text' placeholder="Enter Amount" name="Initial Debt" maxlength="8"/>
+        <label  for="Int Rate">Yearly Interest Rate</label>
+        <input class='R' type='text' placeholder="Enter with Decimal" name="Int Rate" maxlength="4"/>
+        <label  for="Compound">Compound Per Year</label>
+        <input class='N' type='text' placeholder="Usually 12 Months" name="Compound" maxlength="3"/>
+        <label  for="Years"># Of Years</label>
+        <input class='T' type='text' placeholder="5 Years" name="Years" maxlength="3"/>
+        <button id='button1'>Calculate</button>
+    </div>
+    <div class='return_value'>
+        <h3>This is the total value of your investment:</h3>
+        <div id="total"></div>
+    </div>
+    
 </main>
 </body>
 <script type=text/javascript>
@@ -143,6 +183,7 @@ input_two.addEventListener('input', married_jointly);
 
 
 function single_tax(e) {
+    let cost;
     if(e.target.value<=bracket[0]){
     cost = e.target.value*tax[0];
     log_one.textContent = '$'+Math.ceil(cost);
@@ -167,35 +208,89 @@ function single_tax(e) {
 }else if(e.target.value>=bracket[6]){
     cost = tax_index.slice(0,7).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
     log_one.textContent = '$'+Math.ceil(cost);
-}
+} return cost;
 };
 
 function married_jointly(e) {
+    let cost2;
     if(e.target.value<=jointly[0]){
-    cost = e.target.value*tax[0];
-    log_two.textContent = '$'+Math.ceil(cost);
+    cost2 = e.target.value*tax[0];
+    log_two.textContent = '$'+Math.ceil(cost2);
 }else if(e.target.value>jointly[0]&&e.target.value<=bracket[1]){
-    cost = tax_index_jointly.slice(0,1).reduce(reducer)+(e.target.value-bracket[0])*tax[1];
-    log_two.textContent = '$'+Math.ceil(cost);
+    cost2 = tax_index_jointly.slice(0,1).reduce(reducer)+(e.target.value-bracket[0])*tax[1];
+    log_two.textContent = '$'+Math.ceil(cost2);
 }else if(e.target.value>jointly[1]&&e.target.value<=bracket[2]){
-    cost = tax_index_jointly.slice(0,2).reduce(reducer)+(e.target.value-bracket[1])*tax[2];
-    log_two.textContent = '$'+Math.ceil(cost);
+    cost2 = tax_index_jointly.slice(0,2).reduce(reducer)+(e.target.value-bracket[1])*tax[2];
+    log_two.textContent = '$'+Math.ceil(cost2);
 }else if(e.target.value>jointly[2]&&e.target.value<=bracket[3]){
-    cost = tax_index_jointly.slice(0,3).reduce(reducer)+(e.target.value-bracket[2])*tax[3];
-    log_two.textContent = '$'+Math.ceil(cost);
+    cost2 = tax_index_jointly.slice(0,3).reduce(reducer)+(e.target.value-bracket[2])*tax[3];
+    log_two.textContent = '$'+Math.ceil(cost2);
 }else if(e.target.value>jointly[3]&&e.target.value<=bracket[4]){
-    cost = tax_index_jointly.slice(0,4).reduce(reducer)+(e.target.value-bracket[3])*tax[4];
-    log_two.textContent = '$'+Math.ceil(cost);
+    cost2 = tax_index_jointly.slice(0,4).reduce(reducer)+(e.target.value-bracket[3])*tax[4];
+    log_two.textContent = '$'+Math.ceil(cost2);
 }else if(e.target.value>jointly[4]&&e.target.value<=bracket[5]){
-    cost = tax_index_jointly.slice(0,5).reduce(reducer)+(e.target.value-bracket[4])*tax[5];
-    log_two.textContent = '$'+Math.ceil(cost);
+    cost2 = tax_index_jointly.slice(0,5).reduce(reducer)+(e.target.value-bracket[4])*tax[5];
+    log_two.textContent = '$'+Math.ceil(cost2);
 }else if(e.target.value>jointly[5]&&e.target.value<=bracket[6]){
-    cost = tax_index_jointly.slice(0,6).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
-    log_two.textContent = '$'+Math.ceil(cost);
+    cost2 = tax_index_jointly.slice(0,6).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
+    log_two.textContent = '$'+Math.ceil(cost2);
 }else if(e.target.value>=jointly[6]){
-    cost = tax_index_jointly.slice(0,7).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
-    log_two.textContent = '$'+Math.ceil(cost);
-}
+    cost2 = tax_index_jointly.slice(0,7).reduce(reducer)+(e.target.value-bracket[5])*tax[6];
+    log_two.textContent = '$'+Math.ceil(cost2);
+} return cost2;
 };
+
+// a=p(r+(r/n))^nt
+const pstart = document.querySelector('.P');
+const intrate = document.querySelector('.R');
+const numbercomp = document.querySelector('.N');
+const timeyears = document.querySelector('.T');
+const amortize = document.getElementById('total');
+const button = document.getElementById('button1')
+pstart.addEventListener('input', init);
+intrate.addEventListener('input', rate);
+numbercomp.addEventListener('input', compounding);
+timeyears.addEventListener('input', years);
+button.addEventListener('click',compounding_int)
+// let initial = 0;
+// var interest = 0;
+// let compound = 0;
+// let time = 0;
+
+function init(e){
+   
+    initial = e.target.value;
+    return initial;
+    
+};
+function rate(e){
+
+    interest = e.target.value;
+    return interest;
+    
+};
+function compounding(e){
+  
+    compound = e.target.value;
+    return compound;
+    
+};
+function years(e){
+   
+    time = e.target.value;
+    return time;
+   
+};
+
+
+function compounding_int(){
+    // var initial = init;
+    // var interest = rate;
+    // var compound = compounding;
+    // var time = years;
+    amortize.textContent = Math.ceil(initial*(1+(interest/compound))**(compound*time))
+};
+
 </script>
+
 </html>
