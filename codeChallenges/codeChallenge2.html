@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code Challenge 2</title>
+</head>
+<style>     
+    #bluebox {
+        width: 20%;
+        height: 20%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background-color: blue;
+    }
+    </style>
+<body>
+    <div id="bluebox"></div>
+ 
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type='text/javascript'>
+$(document).ready(function() {
+  function movebox() {
+    $('#bluebox').css({
+      'right': window.innerWidth - $('#bluebox').width(),
+      'left': 'auto'}).animate({'right':'0px'}, 2000)
+      .animate({'top':'80%'}, 2000)
+      .animate({'left':'0'}, 2000)
+      .animate({'top': '0'}, 2000, movebox);
+        }
+        movebox();      
+});
+
+</script>
+</html>
