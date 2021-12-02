@@ -4,7 +4,6 @@
   </head>
   <body>
     <div>
-    Hello World
     <canvas id="myChart"></canvas>
     </div>
     <div>
@@ -19,14 +18,13 @@
 <script>
   
   let wagetop= document.querySelector('input#wage1')
-  let wage_one='10';
+  let wage_one=10;
   wagetop.addEventListener('input', function(e){
       wage_one=e.target.value;
-      return wageOne;
+      console.log(wage_one)
   });
   
-  
-const labels = [
+let labels = [
   'January',
   'February',
   'March',
@@ -35,14 +33,15 @@ const labels = [
   'June',
   'August',
 ];
+
 let data = {
   
   labels: labels,
   datasets: [{
-    label: 'My First dataset',
+    label: 'Year Review',
     backgroundColor: 'rgb(255, 99, 132)',
     borderColor: 'rgb(255, 99, 132)',
-    data: [Number(wage_one), 10, 5, 2, 20, 30, 45, 10],
+    data: [wage_one+=1, 8, 5, 2, 20, 30, 45, 10],
   }]
 };
   let config = {
