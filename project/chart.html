@@ -1,0 +1,61 @@
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <div>
+    Hello World
+    <canvas id="myChart"></canvas>
+    </div>
+    <div>
+      <input class='barchart' id='wage1' placeholder='income' name='wages'>
+
+    </div>
+  
+  </body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  
+  let wagetop= document.querySelector('input#wage1')
+  let wage_one='10';
+  wagetop.addEventListener('input', function(e){
+      wage_one=e.target.value;
+      return wageOne;
+  });
+  
+  
+const labels = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'August',
+];
+let data = {
+  
+  labels: labels,
+  datasets: [{
+    label: 'My First dataset',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: [Number(wage_one), 10, 5, 2, 20, 30, 45, 10],
+  }]
+};
+  let config = {
+  type: 'bar',
+  data: data,
+  options: {}
+};
+let myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+
+
+
+  
+</script>
