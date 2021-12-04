@@ -1,0 +1,19 @@
+<html>
+    <body>
+        <input id="input" type="text" name="searchbar">
+        <div id="output"></div><br><br>
+        
+        <div>The Number of Characters: <span id="outputlength"></span></div>
+    </body>
+</html>
+<script>
+    let input1 = document.getElementById('input');
+    let output1 = document.getElementById('output');
+    let outputlength = document.getElementById('outputlength');
+    input1.addEventListener('input',function(e){
+        search = e.target.value
+        console.log(search)
+        output1.textContent = search
+        outputlength.textContent = search.length
+    })
+</script>
