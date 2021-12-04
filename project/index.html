@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<header>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Financial Calculator</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</header>
+
+  <body>
+    <head>
+      <h1>The Behavior Analytics Machine</h1>
+    </head>
+     <main>
+      <section>
+        <h2>Federal Tax Chart</h2>
+      <div>
+      <canvas id="myChart"></canvas>
+      </div>
+
+      <div>
+        
+        <label name='wages'>Yearly Wages</label><br><br>
+        <input class='barchart' id='wage1' placeholder="Enter Amount" name="wages" maxlength="8"/><br>
+        <button id="submission" type='submit'>Calc Tax Bill</button>
+      </div>
+    </section>
+    <section>
+        <h2>Interest Calculator</h2>
+        <form class='three'>
+          <label  for="Initial Debt">Initial Deposit</label><br>
+          <input class='P' type='text' placeholder="Enter Amount" name="Initial Debt" maxlength="8"/><br><br>
+          <label  for="Int Rate">Yearly Interest Rate</label><br>
+          <input class='R' type='text' placeholder="Enter with Decimal" name="Int Rate" maxlength="4"/><br><br>
+          <label  for="Compound">Compound Per Year</label><br>
+          <input class='N' type='text' placeholder="Usually 12 Months" name="Compound" maxlength="3"/><br><br>
+          <label  for="Years"># Of Years</label><br>
+          <input class='T' type='text' placeholder="5 Years" name="Years" maxlength="3"/><br>
+          
+        </form>
+ 
+            <h2>Interest Accrued :</h2>
+            
+            <p id="total"></p>
+
+            <button type="button"  id='button1'>Calculate</button>
+
+    </section>
+    </main>
+  </body>
+</html>
+      
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+const ctx = document.getElementById('myChart').getContext('2d');
+let wagetop=document.getElementById('wage1');
+let wages=[];
+let cost1;
+let cost2;
+let btn = document.getElementById('submission');  
+
+var tax=[.10,.12,.22,.24,.32,.35,.37];
+// 1 single bracket
+var single=[9950,40525,86375,164925,209425,523600,523601];
+var tax_index=[single[0]*tax[0],(single[1]-single[0])*tax[1],(single[2]-single[1])*tax[2],(single[3]-single[2])*tax[3],(single[4]-single[3])*tax[4],(single[5]-single[4])*tax[5],(single[6]-single[5])*tax[6]];
+// 2 married bracket
+var jointly=[19900,81050,172750,329850,418850,628300,628301]
+var tax_index_jointly=[jointly[0]*tax[0],(jointly[1]-jointly[0])*tax[1],(jointly[2]-jointly[1])*tax[2],(jointly[3]-jointly[2])*tax[3],(jointly[4]-jointly[3])*tax[4],(jointly[5]-jointly[4])*tax[5],(jointly[6]-jointly[5])*tax[6]];
+// 3 single bracket
+var separated=[9950,40525,86375,164925,209425,314150,314150]
+var tax_index_separated=[separated[0]*tax[0],(separated[1]-separated[0])*tax[1],(separated[2]-separated[1])*tax[2],(separated[3]-separated[2])*tax[3],(separated[4]-separated[3])*tax[4],(separated[5]-separated[4])*tax[5],(separated[6]-separated[5])*tax[6]];
+
+const reducer = (previousValue, currentValue) => previousValue + currentValue;
+
+// 1
+function single_tax() {
+    if(wages<=single[0]){
+    cost1 = wages*tax[0];
+}else if(wages>single[0]&&wages<=single[1]){
+    cost1 = tax_index.slice(0,1).reduce(reducer)+(wages-single[0])*tax[1];
+}else if(wages>single[1]&&wages<=single[2]){
+    cost1 = tax_index.slice(0,2).reduce(reducer)+(wages-single[1])*tax[2];
+}else if(wages>single[2]&&wages<=single[3]){
+    cost1 = tax_index.slice(0,3).reduce(reducer)+(wages-single[2])*tax[3];
+}else if(wages>single[3]&&wages<=single[4]){
+    cost1 = tax_index.slice(0,4).reduce(reducer)+(wages-single[3])*tax[4];
+}else if(wages>single[4]&&wages<=single[5]){
+    cost1 = tax_index.slice(0,5).reduce(reducer)+(wages-single[4])*tax[5];
+}else if(wages>single[5]&&wages<=single[6]){
+    cost1 = tax_index.slice(0,6).reduce(reducer)+(wages-single[5])*tax[6];
+}else if(wages>=single[6]){
+    cost1 = tax_index.slice(0,7).reduce(reducer)+(wages-single[5])*tax[6];
+} return cost1;
+};
+// 2
+function married_jointly(e) {
+    if(wages<=jointly[0]){
+    cost2 = wages*tax[0]; 
+}else if(wages>jointly[0]&&wages<=jointly[1]){
+    cost2 = tax_index_jointly.slice(0,1).reduce(reducer)+(wages-jointly[0])*tax[1];
+}else if(wages>jointly[1]&&wages<=jointly[2]){
+    cost2 = tax_index_jointly.slice(0,2).reduce(reducer)+(wages-jointly[1])*tax[2];   
+}else if(wages>jointly[2]&&wages<=jointly[3]){
+    cost2 = tax_index_jointly.slice(0,3).reduce(reducer)+(wages-jointly[2])*tax[3]; 
+}else if(wages>jointly[3]&&wages<=jointly[4]){
+    cost2 = tax_index_jointly.slice(0,4).reduce(reducer)+(wages-jointly[3])*tax[4];
+}else if(wages>jointly[4]&&wages<=jointly[5]){
+    cost2 = tax_index_jointly.slice(0,5).reduce(reducer)+(wages-jointly[4])*tax[5]; 
+}else if(wages>jointly[5]&&wages<=jointly[6]){
+    cost2 = tax_index_jointly.slice(0,6).reduce(reducer)+(wages-jointly[5])*tax[6]; 
+}else if(wages>=jointly[6]){
+    cost2 = tax_index_jointly.slice(0,7).reduce(reducer)+(wages-jointly[5])*tax[6];
+} return cost2;
+};
+
+// 3 
+function separated_tax() {
+    if(wages<=separated[0]){
+    cost3 = wages*tax[0];
+}else if(wages>separated[0]&&wages<=separated[1]){
+    cost3 = tax_index_separated.slice(0,1).reduce(reducer)+(wages-separated[0])*tax[1];
+}else if(wages>separated[1]&&wages<=separated[2]){
+    cost3 = tax_index_separated.slice(0,2).reduce(reducer)+(wages-separated[1])*tax[2];
+}else if(wages>separated[2]&&wages<=separated[3]){
+    cost3 = tax_index_separated.slice(0,3).reduce(reducer)+(wages-separated[2])*tax[3];
+}else if(wages>separated[3]&&wages<=separated[4]){
+    cost3 = tax_index_separated.slice(0,4).reduce(reducer)+(wages-separated[3])*tax[4];
+}else if(wages>separated[4]&&wages<=separated[5]){
+    cost3 = tax_index_separated.slice(0,5).reduce(reducer)+(wages-separated[4])*tax[5];
+}else if(wages>separated[5]&&wages<=separated[6]){
+    cost3 = tax_index_separated.slice(0,6).reduce(reducer)+(wages-separated[5])*tax[6];
+}else if(wages>=separated[6]){
+    cost3 = tax_index_separated.slice(0,7).reduce(reducer)+(wages-separated[5])*tax[6];
+} return cost3;
+};
+
+btn.addEventListener('click', function(e){
+  let wage1 = + wagetop.value;
+  wages.push(wage1);
+  single_tax();
+  married_jointly();
+  separated_tax();
+  //I am unfamiliar with the destory method...
+  // if(stackedBar){
+  //   stackedBar.destroy();
+
+  makeIncomeChart();
+});
+
+function makeIncomeChart(){
+let stackedBar = new Chart(ctx, {
+    type: 'bar',
+    data:{
+    	labels: ['Single', 'Married', 'Seperated'],
+    	datasets: [{
+			label: 'Net Income',
+	    	data: [wages-cost1,wages-cost2,wages-cost3],
+	    	backgroundColor: [
+	    	'aquamarine',
+	    	'aquamarine',
+	    	'aquamarine'   	
+	    	],
+	    	borderColor: [
+	    	'aquamarine',
+	    	'aquamarine',
+	    	'aquamarine'  	
+	    	],
+	    	borderWidth: 1
+    	},
+    	//additional dataset:
+    	{
+			label: 'Tax Bill',
+	    	data: [cost1,cost2,cost3],
+	    	backgroundColor: [
+	    	'crimson',
+	    	'crimson',
+	    	'crimson'
+	    	],
+	    	borderColor: [
+	    	'white',
+	    	'white',
+	    	'white' 	
+	    	],
+	    	borderWidth: 1
+    	}
+
+    	]
+    	
+    },
+    options: {
+        scales: {
+            x: {
+                stacked: true
+            },
+            y: {
+                stacked: true
+            }
+        }
+    }
+});
+};
+
+// a=p(r+(r/n))^nt
+const pstart = document.querySelector('.P');
+const intrate = document.querySelector('.R');
+const numbercomp = document.querySelector('.N');
+const timeyears = document.querySelector('.T');
+const amortize = document.getElementById('total');
+const button = document.getElementById('button1')
+pstart.addEventListener('input', init);
+intrate.addEventListener('input', rate);
+numbercomp.addEventListener('input', compounding);
+timeyears.addEventListener('input', years);
+button.addEventListener('click',compounding_int)
+
+function init(e){
+    initial = e.target.value;
+    return initial;
+};
+function rate(e){
+    interest = e.target.value;
+    return interest;
+};
+function compounding(e){
+    compound = e.target.value;
+    return compound;
+};
+function years(e){
+    time = e.target.value;
+    return time;
+};
+
+function compounding_int(){
+    amortize.textContent = "$"+Math.ceil((initial*(1+(interest/compound))**(compound*time))-initial)
+};
+</script>
