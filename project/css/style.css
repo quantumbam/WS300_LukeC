@@ -61,6 +61,9 @@
         margin-top: 3%;
         padding: 8px;
         width: 100px;
+        background-color: #333;
+        color: white;
+        border-radius: 12px;
     }
     canvas{
         background-color: white;
