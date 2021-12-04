@@ -1,0 +1,81 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Roboto&display=swap');
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+::-webkit-input-placeholder {text-align: center;}
+:-moz-placeholder {text-align: center;}
+::-moz-placeholder {text-align: center;}
+:-ms-input-placeholder {text-align: center;}
+@media screen and (max-width: 700px){
+
+}
+@media screen and (min-width: 700px){
+    html{
+        text-align: center;
+        padding: 2%;
+        background-color: #aaa;
+        
+    }
+    section{
+        background-color: DarkCyan;
+        border-radius: 90px;
+        margin: 2%;
+        padding: 2%;
+        color: white;
+        border: 2px solid white;
+    }
+    div{
+        margin: 4%;
+        text-align: center;
+    }
+    h1{
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 900;
+        padding:  10px;
+        border-radius: 20px;
+    }
+    h2{
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 900;
+        padding:  10px;
+        border-radius: 20px; 
+    }
+    label{
+        font-family: 'Poppins', sans-serif;
+        font-size: 22px;
+        font-weight: 900;
+        margin: 10%;
+        line-height: 30px;
+    }
+    input{
+        
+        border-radius: 5px;
+        padding: 10px;
+        width: 120px;
+    }
+    button{
+        margin-top: 3%;
+        padding: 8px;
+        width: 100px;
+    }
+    canvas{
+        background-color: white;
+        border-radius: 20px;
+        margin: 0 4%;
+        padding: 0 4%;
+    }
+    form{
+        text-align: center;
+        border: 1px solid white;
+        border-radius: 30px;
+        margin: 0 20% 2%;
+        padding: 2% 4% 2%;
+    }
+    p{
+        font-family: 'Verdana', 'san serif';
+    }
+}
