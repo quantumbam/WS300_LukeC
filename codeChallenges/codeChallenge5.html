@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>codeChallenge5Advanced</title>
+  
+  
+</head>
+
+<style type="text/css">
+    *, *::before, *::after {
+  padding: 0;
+  /* margin: 0 auto; */
+  box-sizing: border-box;
+}
+.square{
+    height: 100px;
+    width: 100px;
+    /* left:0; */
+    background-color: #123456;
+}
+.square2{
+    height: 100px;
+    width: 100px;
+    /* left:0; */
+    background-color: #687980;
+}
+p{
+    padding: 10px;
+    color: white;
+}
+
+</style>
+<body>
+
+    <div class="content">
+        
+        <div class="square"><p></p></div>
+        <div class="square2"><div class="cool"><p class="cool"></p></div></div>
+      </div>  
+</body>
+
+
+</html>
+<script type="text/javascript">
+    let one = document.querySelector('div.content');
+    let two = document.querySelector('.square');
+    let three = document.querySelector('div.square2');
+    
+    one.addEventListener('mousemove', function(event){
+        let x = event.pageX;
+        // console.log(x)
+        two.style.cssText = 'width:'+x+'px';
+        document.querySelector('p').innerHTML = 'x : '+x+' y : '+event.pageY;
+
+        
+    });
+    two.addEventListener('click', function(e){
+        let x = event.pageX;
+        three.style.cssText = 'width:'+x+'px';
+        
+        document.querySelector('div.cool').style.cssText = 'text-align:right';
+        document.querySelector('p.cool').innerHTML = 'x : '+x+' y : '+event.pageY;
+    });
+</script>
