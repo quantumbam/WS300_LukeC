@@ -5,13 +5,131 @@
     box-sizing: border-box;
 }
 ::-webkit-input-placeholder {text-align: center;}
+:hover::-webkit-input-placeholder {text-align: center; color: white;}
 :-moz-placeholder {text-align: center;}
 ::-moz-placeholder {text-align: center;}
 :-ms-input-placeholder {text-align: center;}
 @media screen and (max-width: 599px){
+    html{
+        font-family: 'Poppins', sans-serif;
+        text-align: center; 
+        /* padding: 2%;  */
+        background-color: #a23810;
+        color: white;
+    }
+    a{
+        text-decoration: none;
+        font-family: Poppins;
+        color: tan;
+    }
+    a:hover{
+        color: white;
+    }
+    section{
+        background-color: DarkCyan;
+        /* border-radius: 90px; */
+        margin: 0 100px 50px;
+        /* padding: 2%; */
+        
+        border: 2px solid #ccc;
+    }
+    div{
+        margin: 6px;
+        text-align: center;
+    }
+    h1{
+        
+      
+        font-weight: 900;
+        /* padding:  10px; */
+    }
+    h2{
+   
+        
+        font-weight: 900;
+    }
+    label{
+       
+        font-size: 18px;
+        font-weight: 900;
+        line-height: 30px;
+    }
+    input{
+        border-radius: 10px;
+        padding-top: 10px;
+        padding-bottom: 3px;
+        width: 160px; 
+    }
+    input:hover{
+        background-color: #a23810;
+    }
+    button{
+        margin-top: 3%;
+        padding: 15px;
+        width: 100px;
+        background-color: grey;
+        color: white;
+        border-radius: 5px;
 
+    }
+    button:hover{
+        background-color: #a23810;
+    }
+    canvas{
+        background-color: white;
+        /* border-radius: 60px; */
+        margin: 4%;
+        /* padding: 4%; */
+        visibility: hidden;
+    }
+    .hoverbox{
+        
+		
+        border-radius: 20px;
+        
+		position: relative;
+		overflow: hidden;
+	}
+    
+	.hover-overlay{
+     
+		width: 100%;
+		height: 100px;
+		background-color: darkcyan;
+		position: absolute;
+		top: 400px; 
+		text-align:center;
+        border-radius: 10px;
+		
+	}
+
+	.hover-overlay h3{
+		padding: 0 .5em;
+	}
+
+	.box1{
+		/* width: 400px; */
+        
+	}
+    form{
+        text-align: center; 
+       
+        border-radius: 30px; 
+        margin: 0 20% 2%;
+        padding: 2% 4% 2%;
+    }
+    p{
+        font-family: 'Roboto', 'san serif';
+    }
+    h3{
+        font-family: 'Roboto', 'san serif';
+    }
+    footer{
+        padding-top: 10px;
+        font-size: 40px;
+    }
 }
-@media screen and (min-width: 600px){
+/* @media screen and (min-width: 600px){ */
     html{
         font-family: 'Poppins', sans-serif;
         text-align: center; 
@@ -62,14 +180,20 @@
         padding-bottom: 3px;
         width: 160px; 
     }
+    input:hover{
+        background-color: #a23810;
+    }
     button{
         margin-top: 3%;
         padding: 15px;
         width: 100px;
-        background-color: #123456;
+        background-color: grey;
         color: white;
         border-radius: 5px;
 
+    }
+    button:hover{
+        background-color: #a23810;
     }
     canvas{
         background-color: white;
@@ -124,4 +248,4 @@
         padding-top: 10px;
         font-size: 40px;
     }
-}
+/* } */
