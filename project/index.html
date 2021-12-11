@@ -25,7 +25,7 @@
             <input class='barchart' id='wage1' placeholder="Enter Here" name="wages" maxlength="8"/><div class="hoverbox box1">
                 <h3>Then</h3>
                 <div class="hover-overlay">
-                    <p>Enter the amount and press create.</p>
+                    <p>Enter the amount as a number with no commas or $ symbols and press create.</p>
                 </div>
             </div>
             <button id="submission" type='submit'>Create</button>
@@ -34,7 +34,10 @@
       <div>
       <canvas id="myChart"></canvas>
       </div>
-     
+      
+    <div>
+     <p class="outcome"></p>
+    </div>
       
       
     </section>
@@ -73,6 +76,7 @@ let wages=[];
 let cost1;
 let cost2;
 let btn = document.getElementById('submission');  
+let output = document.querySelector('p.outcome')
 
 var tax=[.10,.12,.22,.24,.32,.35,.37];
 // 1 single bracket
@@ -158,9 +162,14 @@ btn.addEventListener('click', function(e){
   //I am unfamiliar with the destory method...
   // if(stackedBar){
   //   stackedBar.destroy();
-
+  net1= wages-cost1
+  net2 = wages-cost2
+  net3 = wages-cost3
   makeIncomeChart();
   $('canvas').css('visibility','visible')
+  if(wages!=0){
+      output.innerHTML = '<span style="color: tan;">TAXES </span>:<br>Single : -$'+cost1+'<br>Married : -$'+cost2+'<br>Separated : -$'+cost3+'<br><br><span style="color: tan;">NET INCOME </span>:<br>Single : $'+net1+'<br>Married : $'+net2+'<br>Separated : $'+net3;
+  }
 });
 
 function makeIncomeChart(){
