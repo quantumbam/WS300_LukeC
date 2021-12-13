@@ -21,11 +21,12 @@
         
 
         <div>
-            <label name='wages'><h3>Enter Taxable Wages</h3></label>
-            <input class='barchart' id='wage1' placeholder="Enter Here" name="wages" maxlength="8"/><div class="hoverbox box1">
+            <label name='wages'>Enter Taxable Wages</label><br>
+            <input class='barchart' id='wage1' placeholder="Enter Here" name="wages" maxlength="8"/>
+            <div class="hoverbox box1">
                 <h3>Then</h3>
                 <div class="hover-overlay">
-                    <p>Enter the amount as a number with no commas or $ symbols and press create.</p>
+                   Enter the amount as a number with no commas or $ symbols and press create.
                 </div>
             </div>
             <button id="submission" type='submit'>Create</button>
@@ -35,29 +36,30 @@
       <canvas id="myChart"></canvas>
       </div>
       
-    <div>
-     <p class="outcome"></p>
-    </div>
+
+     <div class="outcome"></div>
+   
       
       
     </section>
+    <!-- <hr> -->
     <section>
-        <h2>Interest Calculator</h2>
+        <h2>Future Value Calculator</h2>
         <form class='three'>
           <label  for="Initial Debt">Initial Deposit</label><br>
-          <input class='P' type='text' placeholder="Enter Amount" name="Initial Debt" maxlength="8"/><br>
+          <input class='P' type='text' placeholder="Enter Amount" name="Initial Debt" maxlength="8"/><br><br>
           <label  for="Int Rate">Yearly Interest Rate</label><br>
-          <input class='R' type='text' placeholder=".12" name="Int Rate" maxlength="4"/><br>
+          <input class='R' type='text' placeholder=".12" name="Int Rate" maxlength="4"/><br><br>
           <label  for="Compound">Compound Per Year</label><br>
-          <input class='N' type='text' placeholder="12" name="Compound" maxlength="3"/><br>
+          <input class='N' type='text' placeholder="12" name="Compound" maxlength="3"/><br><br>
           <label  for="Years"># Of Years</label><br>
-          <input class='T' type='text' placeholder="5 Years" name="Years" maxlength="3"/><br>
+          <input class='T' type='text' placeholder="5 Years" name="Years" maxlength="3"/><br><br>
           
         </form>
  
          
             
-            Total : <p id="total"></p>
+            <h3>Total : </h3><p id="total"></p>
 
             <button type="button"  id='button1'>Submit</button>
 
@@ -69,14 +71,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>     
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-
+// 'use strict';
 const ctx = document.getElementById('myChart').getContext('2d');
 let wagetop=document.getElementById('wage1');
 let wages=[];
 let cost1;
 let cost2;
+let cost3;
+let cost4;
 let btn = document.getElementById('submission');  
-let output = document.querySelector('p.outcome')
+let output = document.querySelector('div.outcome')
 
 var tax=[.10,.12,.22,.24,.32,.35,.37];
 // 1 single bracket
@@ -88,6 +92,9 @@ var tax_index_jointly=[jointly[0]*tax[0],(jointly[1]-jointly[0])*tax[1],(jointly
 // 3 single bracket
 var separated=[9950,40525,86375,164925,209425,314150,314150]
 var tax_index_separated=[separated[0]*tax[0],(separated[1]-separated[0])*tax[1],(separated[2]-separated[1])*tax[2],(separated[3]-separated[2])*tax[3],(separated[4]-separated[3])*tax[4],(separated[5]-separated[4])*tax[5],(separated[6]-separated[5])*tax[6]];
+
+var household=[14200,54200,86350,164900,209400,523600,523601]
+var tax_index_hoh=[household[0]*tax[0],(household[1]-household[0])*tax[1],(household[2]-household[1])*tax[2],(household[3]-household[2])*tax[3],(household[4]-household[3])*tax[4],(household[5]-household[4])*tax[5],(household[6]-household[5])*tax[6]];
 
 const reducer = (previousValue, currentValue) => previousValue + currentValue;
 
@@ -112,7 +119,7 @@ function single_tax() {
 } return cost1;
 };
 // 2
-function married_jointly(e) {
+function married_jointly() {
     if(wages<=jointly[0]){
     cost2 = wages*tax[0]; 
 }else if(wages>jointly[0]&&wages<=jointly[1]){
@@ -153,58 +160,92 @@ function separated_tax() {
 } return cost3;
 };
 
+//4
+function hoh_tax() {
+    if(wages<=household[0]){
+    cost4 = wages*tax[0];
+}else if(wages>household[0]&&wages<=household[1]){
+    cost4 = tax_index_hoh.slice(0,1).reduce(reducer)+(wages-household[0])*tax[1];
+}else if(wages>household[1]&&wages<=single[2]){
+    cost4 = tax_index_hoh.slice(0,2).reduce(reducer)+(wages-household[1])*tax[2];
+}else if(wages>household[2]&&wages<=single[3]){
+    cost4 = tax_index_hoh.slice(0,3).reduce(reducer)+(wages-household[2])*tax[3];
+}else if(wages>household[3]&&wages<=single[4]){
+    cost4 = tax_index_hoh.slice(0,4).reduce(reducer)+(wages-household[3])*tax[4];
+}else if(wages>household[4]&&wages<=single[5]){
+    cost4 = tax_index_hoh.slice(0,5).reduce(reducer)+(wages-household[4])*tax[5];
+}else if(wages>household[5]&&wages<=single[6]){
+    cost4 = tax_index_hoh.slice(0,6).reduce(reducer)+(wages-household[5])*tax[6];
+}else if(wages>=household[6]){
+    cost4 = tax_index_hoh.slice(0,7).reduce(reducer)+(wages-household[5])*tax[6];
+} return cost4;
+};
+
+
 btn.addEventListener('click', function(e){
   let wage1 = + wagetop.value;
   wages.push(wage1);
   single_tax();
   married_jointly();
   separated_tax();
+  hoh_tax();
   //I am unfamiliar with the destory method...
   // if(stackedBar){
   //   stackedBar.destroy();
   net1= wages-cost1
   net2 = wages-cost2
   net3 = wages-cost3
+  net4 = wages-cost4
   makeIncomeChart();
   $('canvas').css('visibility','visible')
   if(wages!=0){
-      output.innerHTML = '<span style="color: tan;">TAXES </span>:<br>Single : -$'+cost1+'<br>Married : -$'+cost2+'<br>Separated : -$'+cost3+'<br><br><span style="color: tan;">NET INCOME </span>:<br>Single : $'+net1+'<br>Married : $'+net2+'<br>Separated : $'+net3;
+      output.innerHTML = '<table><tr><th class="nothing"></th><th>Single</th><th>Married</th><th>Separated</th><th>Head of Household</th></tr><tr><td>Taxes</td><td>-$'+cost1+'</td><td>-$'+cost2+'</td><td>-$'+cost3+'</td><td>-$'+cost4+'</td></tr><tr><td>Net Income</td><td>$'+net1+'</td><td>$'+net2+'</td><td>$'+net3+'</td><td>$'+net4+'</td></tr></table>'
   }
+
+
+
+
+
+
 });
 
 function makeIncomeChart(){
 let stackedBar = new Chart(ctx, {
     type: 'bar',
     data:{
-    	labels: ['Single', 'Married', 'Separated'],
+    	labels: ['Single', 'Married', 'Separated','Head of Household'],
     	datasets: [{
 			label: 'Net Income',
-	    	data: [wages-cost1,wages-cost2,wages-cost3],
+	    	data: [wages-cost1,wages-cost2,wages-cost3,wages-cost4],
 	    	backgroundColor: [
-	    	'aquamarine',
-	    	'aquamarine',
-	    	'aquamarine'   	
+	    	'#abd5ab',
+	    	'#abd5ab',
+	    	'#abd5ab',
+            '#abd5ab'   	
 	    	],
 	    	borderColor: [
-	    	'aquamarine',
-	    	'aquamarine',
-	    	'aquamarine'  	
+	    	'#abd5ab',
+	    	'#abd5ab',
+	    	'#abd5ab',  	
+	    	'#abd5ab'  	
 	    	],
 	    	borderWidth: 1
     	},
     	//additional dataset:
     	{
 			label: 'Tax Bill',
-	    	data: [cost1,cost2,cost3],
+	    	data: [cost1,cost2,cost3,cost4],
 	    	backgroundColor: [
+	    	'crimson',
 	    	'crimson',
 	    	'crimson',
 	    	'crimson'
 	    	],
 	    	borderColor: [
-	    	'white',
-	    	'white',
-	    	'white' 	
+	    	'crimson',
+	    	'crimson',
+	    	'crimson', 	
+	    	'crimson'	
 	    	],
 	    	borderWidth: 1
     	}
@@ -259,7 +300,21 @@ function compounding_int(){
     amortize.textContent = "$"+Math.ceil((initial*(1+(interest/compound))**(compound*time)))
 };
 
-
+document.querySelector('input').addEventListener('click', function(){
+    document.querySelector('input').placeholder = "";
+})
+document.querySelector('.P').addEventListener('click', function(){
+    document.querySelector('.P').placeholder = "";
+})
+document.querySelector('.R').addEventListener('click', function(){
+    document.querySelector('.R').placeholder = "";
+})
+document.querySelector('.N').addEventListener('click', function(){
+    document.querySelector('.N').placeholder = "";
+})
+document.querySelector('.T').addEventListener('click', function(){
+    document.querySelector('.T').placeholder = "";
+})
 
 //mouseleave
 
