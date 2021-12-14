@@ -24,7 +24,7 @@
             <label name='wages'>Enter Taxable Wages</label><br>
             <input class='barchart' id='wage1' placeholder="Enter Here" name="wages" maxlength="8"/>
             <div class="hoverbox box1">
-                <h3>Then</h3>
+                <h3>Then...</h3>
                 <div class="hover-overlay">
                    Enter the amount as a number with no commas or $ symbols and press create.
                 </div>
@@ -45,6 +45,12 @@
     <!-- <hr> -->
     <section>
         <h2>Future Value Calculator</h2>
+        <div class="hoverbox box1">
+            <h3>Investment Profit</h3>
+            <div class="hover-overlay">
+               The output shows how much money you will accumulate over time. 
+            </div>
+            </div>
         <form class='three'>
           <label  for="Initial Debt">Initial Deposit</label><br>
           <input class='P' type='text' placeholder="Enter Amount" name="Initial Debt" maxlength="8"/><br><br>
@@ -63,6 +69,31 @@
 
             <button type="button"  id='button1'>Submit</button>
 
+    </section>
+    <section>
+        <h2>Present Value Calculator</h2>
+        <div class="hoverbox box1">
+            <h3>For Initial Savings</h3>
+            <div class="hover-overlay">
+               The output shows how much money needs to be invested to reach your goal. 
+            </div>
+        </div>
+        <form class='three'>
+            <label  for="futurevalue">What's your financial goal?</label><br>
+            <input class='futval' type='text' placeholder="Enter Amount" name="futurevalue" maxlength="9"/><br><br>
+            <label  for="rates">Yearly Interest Rate</label><br>
+            <input class='intrates' type='text' placeholder=".12" name="rates" maxlength="4"/><br><br>
+            <label  for="compounds">Compound Per Year</label><br>
+            <input class='compoundtimes' type='text' placeholder="12" name="compounds" maxlength="3"/><br><br>
+            <label  for="years"># Of Years</label><br>
+            <input class="yearly" type='text' placeholder="5 Years" name="years" maxlength="3"/><br><br>
+            
+
+
+          </form>
+          <h3>Total : </h3><p class="presval"></p>
+          <button class="activation">Press</button>
+        
     </section>
     </main>
     <footer>Luke Chimes  &#183; <a href="https://github.com/quantumbam" target="_">GitHub</a> </footer>
@@ -265,19 +296,19 @@ let stackedBar = new Chart(ctx, {
     }
 });
 };
-
+//future value
 // a=p(r+(r/n))^nt
 const pstart = document.querySelector('.P');
 const intrate = document.querySelector('.R');
 const numbercomp = document.querySelector('.N');
 const timeyears = document.querySelector('.T');
 const amortize = document.getElementById('total');
-const button = document.getElementById('button1')
+const buttons = document.getElementById('button1')
 pstart.addEventListener('input', init);
 intrate.addEventListener('input', rate);
 numbercomp.addEventListener('input', compounding);
 timeyears.addEventListener('input', years);
-button.addEventListener('click',compounding_int)
+buttons.addEventListener('click',compounding_int)
 
 function init(e){
     initial = e.target.value;
@@ -297,7 +328,7 @@ function years(e){
 };
 
 function compounding_int(){
-    amortize.textContent = "$"+Math.ceil((initial*(1+(interest/compound))**(compound*time)))
+    amortize.textContent = "$"+Math.ceil((initial*(1+(interest/compound))**(compound*time)));
 };
 
 document.querySelector('input').addEventListener('click', function(){
@@ -328,4 +359,42 @@ $('.hoverbox').on('mouseenter', function(e){
 
 
 })
+
+
+//present value
+// pv = fv*1/((1+r)**n)
+
+const presenttvalue = document.querySelector('.presval')
+const futures = document.querySelector('.futval')
+const interestrate = document.querySelector('.intrates')
+const compoundly = document.querySelector('.compoundtimes')
+const yearso = document.querySelector('.yearly')
+const buttono = document.querySelector('.activation')
+
+futures.addEventListener('input', initt);
+interestrate.addEventListener('input', ratee);
+compoundly.addEventListener('input', compoundd);
+yearso.addEventListener('input', yearss);
+buttono.addEventListener('click',futuristic);
+
+function yearss(e){
+    yearsss = e.target.value;
+    return yearsss;
+};
+function ratee(e){
+    rateee = e.target.value;
+    return rateee;
+};
+function compoundd(e){
+    compounddd = e.target.value;
+    return compounddd;
+};
+function initt(e){
+    inittt = e.target.value;
+    return inittt;
+};
+function futuristic(){
+    presentformula = inittt*1/((1+rateee/compounddd)**(compounddd*yearsss));
+    presenttvalue.textContent = "$"+Math.ceil(presentformula);
+}
 </script>
