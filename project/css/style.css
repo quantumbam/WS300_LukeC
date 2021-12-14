@@ -1,9 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Roboto&display=swap');
-*, *::before, *::after {
+/* *, *::before, *::after {
     box-sizing: border-box;
-}
+} */
 ::-webkit-input-placeholder {text-align: center;}
 :active::-webkit-input-placeholder {text-align: center; color: white;}
 :hover::-webkit-input-placeholder {text-align: center; color: white;}
@@ -33,7 +33,7 @@
         /* border-radius: 5px; */
     }
     div{
-        margin: 6px;
+        /* margin: 6px; */
         text-align: center;
     }
     h1{
@@ -42,11 +42,6 @@
     }
     h2{  
         font-weight: 900;
-    }
-    h3{
-        background-color:#a23444;
-        /* width: 50%; */
-        border-radius: 50%;
     }
     label{
         font-size: 18px;
@@ -91,11 +86,15 @@
         background-color: #a23;
     }
     canvas{
+        /* display: flex; */
         background-color: white;
         border-radius: 10px;
-        margin: 5%;
+        
         padding-bottom: 4%;
         visibility: hidden;
+    }
+    div.charty{
+        margin: 4%;
     }
     .hoverbox{
 		position: relative;
@@ -141,10 +140,7 @@
     th.nothing{
         visibility: hidden;
     }
-    td{
-        /* background-color: #203354; */
-        /* border-radius: 10px; */
-    }
+
     td:first-child{
         font-size: 18px;
         padding: 15px;
