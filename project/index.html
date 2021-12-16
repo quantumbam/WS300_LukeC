@@ -17,7 +17,7 @@
     </head>
      <main>
       <section>
-        <h2></h2>
+    
         
 
         <div>
@@ -33,7 +33,7 @@
           </div>
 
       <div class="charty">
-      <canvas id="myChart"></canvas>
+      <canvas id="myChart" class="canvasone"></canvas>
       </div>
       
 
@@ -42,7 +42,25 @@
       
       
     </section>
-    <!-- <hr> -->
+    <section>
+        
+        
+        <div>
+          <label  for="capitalgain">Long-Term Capital Gain</label><br>
+          <input class='longterm' type='text' placeholder="5 Years" name="capitalgain" maxlength="8"/>
+          <div class="hoverbox box1">
+            <h3>Net Long-Term Capital Gain</h3>
+            <div class="hover-overlay">
+               This will show Long-Term Capital Gain Tax. 
+            </div>
+            </div>
+            <button type="button"  class="buttongainn">Submit</button>
+        </div>
+            <div class="charty">
+            <canvas id="myChart2" class="canvastwo"></canvas>
+            </div>
+            <div class="outputcapital"></div>
+    </section>
     <section>
         <h2>Future Value Calculator</h2>
         <div class="hoverbox box1">
@@ -147,7 +165,7 @@ function single_tax() {
     cost1 = tax_index.slice(0,6).reduce(reducer)+(wages-single[5])*tax[6];
 }else if(wages>=single[6]){
     cost1 = tax_index.slice(0,7).reduce(reducer)+(wages-single[5])*tax[6];
-} return cost1;
+} return Math.round(cost1);
 };
 // 2
 function married_jointly() {
@@ -167,7 +185,7 @@ function married_jointly() {
     cost2 = tax_index_jointly.slice(0,6).reduce(reducer)+(wages-jointly[5])*tax[6]; 
 }else if(wages>=jointly[6]){
     cost2 = tax_index_jointly.slice(0,7).reduce(reducer)+(wages-jointly[5])*tax[6];
-} return cost2;
+} return Math.round(cost2);
 };
 
 // 3 
@@ -188,7 +206,7 @@ function separated_tax() {
     cost3 = tax_index_separated.slice(0,6).reduce(reducer)+(wages-separated[5])*tax[6];
 }else if(wages>=separated[6]){
     cost3 = tax_index_separated.slice(0,7).reduce(reducer)+(wages-separated[5])*tax[6];
-} return cost3;
+} return Math.round(cost3);
 };
 
 //4
@@ -209,7 +227,7 @@ function hoh_tax() {
     cost4 = tax_index_hoh.slice(0,6).reduce(reducer)+(wages-household[5])*tax[6];
 }else if(wages>=household[6]){
     cost4 = tax_index_hoh.slice(0,7).reduce(reducer)+(wages-household[5])*tax[6];
-} return cost4;
+} return Math.round(cost4);
 };
 
 
@@ -220,24 +238,15 @@ btn.addEventListener('click', function(e){
   married_jointly();
   separated_tax();
   hoh_tax();
-  //I am unfamiliar with the destory method...
-  // if(stackedBar){
-  //   stackedBar.destroy();
-  net1= wages-cost1
-  net2 = wages-cost2
-  net3 = wages-cost3
-  net4 = wages-cost4
+  net1= Math.round(wages-cost1);
+  net2 = Math.round(wages-cost2);
+  net3 = Math.round(wages-cost3);
+  net4 = Math.round(wages-cost4);
   makeIncomeChart();
   $('canvas').css('visibility','visible')
   if(wages!=0){
       output.innerHTML = '<table><tr><th class="nothing"></th><th>Single</th><th>Married</th><th>Separated</th><th>Head of Household</th></tr><tr><td>Taxes</td><td>-$'+cost1+'</td><td>-$'+cost2+'</td><td>-$'+cost3+'</td><td>-$'+cost4+'</td></tr><tr><td>Net Income</td><td>$'+net1+'</td><td>$'+net2+'</td><td>$'+net3+'</td><td>$'+net4+'</td></tr></table>'
   }
-
-
-
-
-
-
 });
 
 function makeIncomeChart(){
@@ -296,6 +305,189 @@ let stackedBar = new Chart(ctx, {
     }
 });
 };
+
+
+
+//long term capital gain tax
+const ctx2 = document.getElementById('myChart2').getContext('2d');
+let cap=[];
+let cap2;
+let costcap1;
+let costcap2;
+let costcap3;
+let costcap4;
+let costcap5;
+let netcap1=[];
+let netcap2=[];
+let netcap3=[];
+let netcap4=[];
+let netcap5=[];
+let outputcap = document.querySelector('.outputcapital')
+let inputcap = document.querySelector('.longterm');
+let buttongain = document.querySelector('.buttongainn');
+taxcap=[0,.15,.20]
+singlecap=[40400,445850,445851];
+marriedcap=[80800,501600,501601];
+separatedcap=[40400,250800,250801];
+hohcap=[54100,473750,473751];
+estatescap=[2700,13250,13251];
+
+// 1
+function single_cap_tax() {
+    cap2= cap-wages;
+    if(cap<=singlecap[0]){
+    costcap1 = cap2*taxcap[0];
+}else if(cap>singlecap[0]&&cap<=singlecap[1]){
+    costcap1 = cap2*taxcap[1];
+}else if(cap>singlecap[2]){
+    costcap1 = cap2*taxcap[2];
+} return Math.round(costcap1);
+};
+// 2
+function married_cap_index() {
+    cap2 = cap-wages;
+    if(cap<=marriedcap[0]){
+    costcap2 = cap2*taxcap[0];
+}else if(cap>marriedcap[0]&&cap<=marriedcap[1]){
+    costcap2 = cap2*taxcap[1];
+}else if(cap>marriedcap[2]){
+    costcap2 = cap2*taxcap[2];
+} return Math.round(costcap2);
+};
+// 3 
+function separated_cap_tax() {
+    cap2= cap-wages;
+    if(cap<=separatedcap[0]){
+    costcap3 = cap2*taxcap[0];
+}else if(cap>separatedcap[0]&&cap<=separatedcap[1]){
+    costcap3 = cap2*taxcap[1];
+}else if(cap>separatedcap[2]){
+    costcap3 = cap2*taxcap[2];
+} return Math.round(costcap3);
+};
+//4
+function hoh_cap_tax() {
+    cap2= cap-wages;
+    if(cap<=hohcap[0]){
+    costcap4 = cap2*taxcap[0];
+}else if(cap>hohcap[0]&&cap<=hohcap[1]){
+    costcap4 = cap2*taxcap[1];
+}else if(cap>hohcap[2]){
+    costcap4 = cap2*taxcap[2];
+} return Math.round(costcap4);
+};
+//5 estates and trusts
+function estates_cap_tax() {
+    cap2=cap-wages;
+    if(cap<=estatescap[0]){
+    costcap5 = cap2*taxcap[0];
+}else if(cap>estatescap[0]&&cap<=estatescap[1]){
+    costcap5 = cap2*taxcap[1];
+}else if(cap>estatescap[2]){
+    costcap5 = cap2*taxcap[2];
+} return Math.round(costcap5);
+};
+
+ 
+buttongain.addEventListener('click',function(e){
+  let cap1 = inputcap.value;
+  
+  
+  let cap3 = Number(cap1)+Number(wages);
+  
+  
+  
+  cap.push(cap3);
+//   cap+=wages
+  single_cap_tax();
+  married_cap_index();
+  separated_cap_tax();
+  hoh_cap_tax();
+  estates_cap_tax();
+  console.log(inputcap.value);
+  console.log(wages)
+  console.log(cap3);
+  console.log(cap);
+  console.log(cap2);
+  console.log(costcap1)
+  
+  
+
+  netcap1= Math.round(cap2-costcap1);
+  netcap2 = Math.round(cap2-costcap2);
+  netcap3 = Math.round(cap2-costcap3);
+  netcap4 = Math.round(cap2-costcap4);
+  netcap5 = Math.round(cap2-costcap5);
+  console.log(netcap1)
+  makeIncomeChart2();
+  $('canvas.canvastwo').css('visibility','visible')
+  if(cap!=0){
+      outputcap.innerHTML = '<table><tr><th class="nothing"></th><th>Single</th><th>Married</th><th>Separated</th><th>Head of Household</th><th>Estates/Trusts</th></tr><tr><td>Taxes</td><td>-$'+costcap1+'</td><td>-$'+costcap2+'</td><td>-$'+costcap3+'</td><td>-$'+costcap4+'</td><td>-$'+costcap5+'</td></tr><tr><td>Net Gain</td><td>$'+netcap1+'</td><td>$'+netcap2+'</td><td>$'+netcap3+'</td><td>$'+netcap4+'</td><td>$'+netcap5+'</td></tr></table>';
+  }
+});
+
+function makeIncomeChart2(){
+let stackedBar2 = new Chart(ctx2, {
+    type: 'bar',
+    data:{
+    	labels: ['Single', 'Married', 'Separated','Head of Household','Estates/Trusts'],
+    	datasets: [{
+			label: 'Net Capital Gain',
+	    	data: [netcap1,netcap2,netcap3,netcap4,netcap5],
+	    	backgroundColor: [
+	    	'#abd5ab',
+	    	'#abd5ab',
+	    	'#abd5ab',
+            '#abd5ab',   	
+            '#abd5ab'   	
+	    	],
+	    	borderColor: [
+	    	'#abd5ab',
+	    	'#abd5ab',
+	    	'#abd5ab',  	
+	    	'#abd5ab',  	
+	    	'#abd5ab'  	
+	    	],
+	    	borderWidth: 1
+    	},
+    	//additional dataset:
+    	{
+			label: 'Capital Gains Tax',
+	    	data: [costcap1,costcap2,costcap3,costcap4,costcap5],
+	    	backgroundColor: [
+	    	'crimson',
+	    	'crimson',
+	    	'crimson',
+	    	'crimson',
+            'crimson'
+	    	],
+	    	borderColor: [
+	    	'crimson',
+	    	'crimson',
+	    	'crimson', 	
+	    	'crimson',
+            'crimson'	
+	    	],
+	    	borderWidth: 1
+    	}
+
+    	]
+    	
+    },
+    options: {
+        scales: {
+            x: {
+                stacked: true
+            },
+            y: {
+                stacked: true
+            }
+        }
+    }
+});
+};
+
+
 //future value
 // a=p(r+(r/n))^nt
 const pstart = document.querySelector('.P');
@@ -333,19 +525,19 @@ function compounding_int(){
 
 document.querySelector('input').addEventListener('click', function(){
     document.querySelector('input').placeholder = "";
-})
+});
 document.querySelector('.P').addEventListener('click', function(){
     document.querySelector('.P').placeholder = "";
-})
+});
 document.querySelector('.R').addEventListener('click', function(){
     document.querySelector('.R').placeholder = "";
-})
+});
 document.querySelector('.N').addEventListener('click', function(){
     document.querySelector('.N').placeholder = "";
-})
+});
 document.querySelector('.T').addEventListener('click', function(){
     document.querySelector('.T').placeholder = "";
-})
+});
 
 //mouseleave
 
@@ -358,7 +550,7 @@ $('.hoverbox').on('mouseenter', function(e){
 	}
 
 
-})
+});
 
 
 //present value
@@ -396,5 +588,5 @@ function initt(e){
 function futuristic(){
     presentformula = inittt*1/((1+rateee/compounddd)**(compounddd*yearsss));
     presenttvalue.textContent = "$"+Math.ceil(presentformula);
-}
+};
 </script>
