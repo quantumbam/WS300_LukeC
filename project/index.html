@@ -11,10 +11,10 @@
 </header>
 
   <body>
-    <head>
+    <header>
       <h1>Fed &#183; Tax Calculator &#8482;</h1>
       <h3>Created With <a href="https://w3schools.com/js/default.asp" target="_">JavaScript </a>And <a href="https://chartjs.org" target="_">Chart . js</a></h3>
-    </head>
+    </header>
      <main>
       <section>
         <div>
@@ -23,10 +23,10 @@
             <div class="hoverbox box1">
                 <h3>Then...</h3>
                 <div class="hover-overlay">
-                   Enter the amount as a number with no commas or $ symbols and press create.
+                   Enter the amount as a number with no commas or $ symbols and press CHART.
                 </div>
             </div>
-            <button id="submission" type='submit'>Create</button>
+            <button id="submission" type='submit'>CHART</button>
           </div>
       <div class="charty">
       <canvas id="myChart" class="canvasone"></canvas>
@@ -40,10 +40,10 @@
           <div class="hoverbox box1">
             <h3>Net Long-Term Capital Gain</h3>
             <div class="hover-overlay">
-               This will show Long-Term Capital Gain Tax. 
+               These are profits from the sale of assets with 366+ days of ownership or inherited profits.
             </div>
             </div>
-            <button type="button"  class="buttongainn">Create</button>
+            <button type="button"  class="buttongainn">CHART</button>
         </div>
             <div class="charty">
             <canvas id="myChart2" class="canvastwo"></canvas>
@@ -55,7 +55,7 @@
         <div class="hoverbox box1">
             <h3>Investment Profit</h3>
             <div class="hover-overlay">
-               The output shows how much money you will accumulate over time. 
+               Money accumulates in value through investment over time. 
             </div>
             </div>
         <form class='three'>
@@ -76,7 +76,7 @@
         <div class="hoverbox box1">
             <h3>For Initial Savings</h3>
             <div class="hover-overlay">
-               The output shows how much money needs to be invested to reach your goal. 
+               This shows what initial deposit is needed to make X amount of money. 
             </div>
         </div>
         <form class='three'>
@@ -90,7 +90,7 @@
             <input class="yearly" type='text' placeholder="5 Years" name="years" maxlength="3"/><br><br>
         </form>
           <h3>Total : </h3><p class="presval"></p>
-          <button class="activation">Press</button>    
+          <button class="activation">Submit</button>    
     </section>
     </main>
     <footer>Luke Chimes  &#183; <a href="https://github.com/quantumbam" target="_">GitHub</a> </footer>
@@ -221,6 +221,7 @@ function numba(){
   net4 = wages-cost4;
   makeIncomeChart();
   $('canvas.canvasone').css('visibility','visible')
+  $('canvas.canvasone').css('transition','ease 1s')
   if(wages!=0){
       output.innerHTML = '<table><tr><th class="nothing"></th><th>Single</th><th>Married</th><th>Separated</th><th>Head of Household</th></tr><tr><td>Taxes</td><td>-$'+Math.round(cost1)+'</td><td>-$'+Math.round(cost2)+'</td><td>-$'+Math.round(cost3)+'</td><td>-$'+Math.round(cost4)+'</td></tr><tr><td>Net Income</td><td>$'+Math.round(net1)+'</td><td>$'+Math.round(net2)+'</td><td>$'+Math.round(net3)+'</td><td>$'+Math.round(net4)+'</td></tr></table>'
   }
