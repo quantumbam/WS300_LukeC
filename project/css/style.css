@@ -13,9 +13,16 @@
     html{
         font-family: 'Poppins', sans-serif;
         text-align: center;
-        background-color: #444;
+        background-color: #ffeeee;
         color: white;
-        padding: 0 100px;
+        padding: 10px;
+   
+    }
+    header{
+        background-color: #234;
+        padding: 10px;
+  
+        
     }
     a{
         text-decoration: none;
@@ -26,10 +33,11 @@
         color: white;
     }
     section{
-        background-color: #444;
-        padding-bottom: 30px;
-        border-radius: 10px;
-        margin: 10%;
+        background-color: #275864;
+        border-top: 20px solid black;
+        padding: 20px 30px;
+        margin-bottom: 40px;
+        border-radius: 0 0 20px 20px;
     }
     div{
         text-align: center;
@@ -39,22 +47,24 @@
 
     }
     h2{ 
+        
         padding-top: 20px; 
         font-weight: 900;
     }
     label{
+        padding-top: 20px;
         font-size: 18px;
         font-weight: 900;
     }
     input{
         text-align: center;
-        border-radius: 15px;
+        margin-top: 10px;
         padding-top: 10px;
         padding-bottom: 3px;
         width: 160px; 
     }
     input:hover{
-        background-color: #333;
+        background-color: #275864;
     }
     input:hover::after{
         background-color: white;
@@ -74,19 +84,27 @@
         background-color: white;
     }
     button{
-        margin-top: 4px;
-        padding: 8px;
-        width: 100px;
-        background-color: #323;
+       
+       font-size: 28px;
+        padding: 20px;
+        width: 300px;
+        background-color: #275864;
+        border-radius: 10px;
         color: white;
-        border-radius: 5px;
+        margin: 20px;
     }
     button:hover{
-        background-color: #118c4f;
+        background-color: #323;
+        transition: ease .5s;
+    }
+    button:active{
+        font-size: 15px;
+        transition: ease .2s;
+  
     }
     canvas{
-        background-color: #f8f0e3;
-        border-radius: 30px 10px;
+        background-color: white;
+ 
         padding-bottom: 4%;
     }
     canvas.canvasone{
@@ -110,8 +128,8 @@
         padding: 18px 10px;
 		width: 100%;
 		height: 100px;
-		background-color: #333;
-        border-left: 5px solid white;
+		background-color: #275864;
+        
 		position: absolute;
 		text-align:center;
 	}
@@ -121,9 +139,10 @@
 	}
     table{
         width: 70%;
+        padding-bottom: 30px;
         margin: 0 auto;
-        background-color: #333;
-        border-radius: 30px 10px;
+        background-color: #275864;
+        transition: ease 1s;
     }
     th{
         font-size: 18px;
@@ -144,13 +163,14 @@
     }
     td:hover:first-child~td{
         color: #fff;
+        transition: ease 1s;
     }
     td:first-child~td{
         font-family: verdana;
     }
     form{
         text-align: center; 
-        border-radius: 30px; 
+  
     }
     p{
         line-height: 1;
@@ -166,7 +186,7 @@
     }
     footer{
         background-color: black;
-        border-radius: 7px;
+  
         margin: 10px 10%;
         padding: 100px 50px;
         font-size: 22px;
